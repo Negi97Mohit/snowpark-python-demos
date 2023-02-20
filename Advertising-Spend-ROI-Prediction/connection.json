@@ -1,9 +1,9 @@
 {
-  "account"   : "",
-  "user"      : "",
-  "password"  : "",
-  "role"      : "",
-  "warehouse" : "",
-  "database"  : "",
+  "account"   : "eouswjo-py32288",
+  "user"      : "NEGISMOHIT97",
+  "password"  : "Hollyhalston97)",
+  "role"      : "ACCOUNTADMIN",
+  "warehouse" : "ANALYTICS_WH",
+  "database"  : "ROI",
   "schema"    : ""
 }
