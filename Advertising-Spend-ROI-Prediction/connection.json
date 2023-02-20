@@ -5,5 +5,5 @@
   "role"      : "ACCOUNTADMIN",
   "warehouse" : "ANALYTICS_WH",
   "database"  : "ROI",
-  "schema"    : ""
+  "schema"    : "public"
 }
