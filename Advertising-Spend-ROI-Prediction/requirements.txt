@@ -1,2 +1,6 @@
-streamlib
+scipy
+matplotlib
+numpy
+pandas
 streamlit
+openpyxl
