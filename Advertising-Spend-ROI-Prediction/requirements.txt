@@ -4,3 +4,4 @@ numpy
 pandas
 streamlit
 openpyxl
+snowflake.snowpark
