@@ -1,5 +1,5 @@
-altair==4.1.0
-pandas==1.4.4
-snowflake==0.0.3
-snowflake_snowpark_python==1.1.0
-streamlit==1.16.0
+altair
+pandas
+snowflake
+snowflake_snowpark_python
+streamlit
