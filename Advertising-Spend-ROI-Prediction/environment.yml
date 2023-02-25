@@ -1,0 +1,4 @@
+name: snowpark
+dependencies:
+- pandas_profiling
+- snowflake-snowpark-python
