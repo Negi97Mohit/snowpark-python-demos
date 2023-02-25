@@ -1,5 +1,5 @@
 snowflake-connector-python==2.7.11; python_version >= "3.7"
-snowflake-snowpark-python==0.8.0; python_full_version >= "3.8.0" and python_full_version < "3.9.0"
+snowflake-snowpark-python==0.8.0
 scipy
 matplotlib
 numpy
