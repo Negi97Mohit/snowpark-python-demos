@@ -1,5 +1,4 @@
-snowflake_connector_python
-snowflake_snowpark_python
+snowflake-connector-python==2.8.1
 scipy
 matplotlib
 numpy
