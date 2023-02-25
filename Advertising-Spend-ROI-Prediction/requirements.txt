@@ -4,3 +4,5 @@ numpy
 pandas
 streamlit
 openpyxl
+snowflake-connector-python==2.7.12
+snowflake-snowpark-python==1.1.0
