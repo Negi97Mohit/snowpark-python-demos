@@ -1,5 +1,5 @@
-snowflake-connector-python
-snowflake-snowpark-python
+snowflake_connector_python
+snowflake_snowpark_python
 scipy
 matplotlib
 numpy
