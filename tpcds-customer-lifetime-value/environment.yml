@@ -3,6 +3,7 @@ channels:
   - snowflake
 dependencies:
   - python=3.8
+  - snowflake-sqlalchemy
   - snowflake-snowpark-python
   - ipykernel
   - pyarrow
