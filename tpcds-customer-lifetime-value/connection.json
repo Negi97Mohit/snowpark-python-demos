@@ -1,0 +1,9 @@
+{
+  "account"   : "eouswjo-py32288",
+  "user"      : "NEGISMOHIT97",
+  "password"  : "Hollyhalston97)",
+  "role"      : "ACCOUNTADMIN",
+  "warehouse" : "ANALYTICS_WH",
+  "database"  : "SNOWFLAKE_SAMPLE_DATA",
+  "schema"    : "TPCDS_SF10TCL"
+}

@@ -1,0 +1,9 @@
+{
+  "account"   : "eouswjo-py32288",
+  "user"      : "NEGISMOHIT97",
+  "password"  : "Hollyhalston97)",
+  "role"      : "ACCOUNTADMIN",
+  "warehouse" : "ANALYTICS_WH",
+  "database"  : "TPCDS_XGBOOST",
+  "schema"    : "DEMO"
+}
