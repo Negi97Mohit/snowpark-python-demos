@@ -3,7 +3,7 @@
   "user"      : "MOHITSNEGI123",
   "password"  : "Hollyhalston97)",
   "role"      : "ACCOUNTADMIN",
-  "warehouse" : "ANALYTICS_WH",
-  "database"  : "SNOWFLAKE_SAMPLE_DATA",
-  "schema"    : "TPCDS_SF10TCL"
+  "warehouse" : "FE_AND_INFERENCE_WH",
+  "database"  : "TPCDS_XGBOOST",
+  "schema"    : "DEMO"
 }
