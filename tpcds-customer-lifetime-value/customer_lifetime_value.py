@@ -65,7 +65,8 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
         '''
         and cd_credit_rating in '''+ str(credit_option),
         '''
-        and cd_education_status in '''+ str(education_option[0]),
+        and cd_education_status in '''+ str(education_option),
+        
         """ 
         and cd_gender in('"""+ str(gender_option[0])+"""')""",
         """
