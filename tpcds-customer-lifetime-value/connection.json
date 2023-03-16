@@ -1,9 +1,9 @@
 {
-  "account"   : "ieimkyf-atb67363",
-  "user"      : "MOHITSNEGI123",
-  "password"  : "Hollyhalston97)",
+  "account"   : "pinvdzu-ljb05593",
+  "user"      : "gamer9797123",
+  "password"  : "Gamer9797123)",
   "role"      : "ACCOUNTADMIN",
-  "warehouse" : "FE_AND_INFERENCE_WH",
-  "database"  : "TPCDS_XGBOOST",
-  "schema"    : "DEMO"
+  "warehouse" : "COMPUTE_WH",
+  "database"  : "SNOWFLAKE_SAMPLE_DATA",
+  "schema"    : "TPCDS_SF10TCL"
 }

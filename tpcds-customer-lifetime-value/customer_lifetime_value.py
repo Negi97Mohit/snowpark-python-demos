@@ -1,64 +1,3 @@
-# import streamlit as st
-# import snowflake.snowpark
-# from snowflake.snowpark import functions as F
-# from snowflake.snowpark.session import Session
-# import json
-
-# from sklearn.pipeline import Pipeline
-# from sklearn.impute import SimpleImputer
-# from sklearn.preprocessing import StandardScaler, OneHotEncoder, MinMaxScaler
-# from sklearn.metrics import mean_squared_error
-# from sklearn.compose import ColumnTransformer
-# from xgboost import XGBRegressor
-# import joblib
-# import os
-# from sqlalchemy import create_engine
-# import sys
-# import pandas as pd
-# import cachetools
-# import joblib
-# from snowflake.snowpark import types as T
-# from snowflake.sqlalchemy import URL
-# def main():
-
-#     url = URL(
-#     user='NEGISMOHIT97',
-#     password='Hollyhalston97)',
-#     account='eouswjo-py32288',
-#     warehouse='ANALYTICS_WH',
-#     database='TPCDS_XGBOOST',
-#     schema='DEMO',
-#     role = 'ACCOUNTADMIN'
-# )
-#     engine = create_engine(url)
-    
-    
-#     connection = engine.connect()
-#     query = '''
-#     select * from PREDICTIONS
-#     '''
-#     res = pd.read_sql(query, connection)
-#     st.write(res.head())
-#     return res
-
-# global res
-# if __name__ == "__main__":
-#     res=main()
-
-
-# st.title("Feature Engineering and XGBoost Training")
-# st.write("This is a sample Streamlit app that demonstrates feature engineering and XGBoost training.")
-    
-# # Display advertising budget sliders and set their default values
-# st.header("Advertising budgets")
-# col1, _, col2 = st.columns([4, 1, 4])
-# channels = ["C_BIRTH_YEAR",  "CD_CREDIT_RATING", "CD_EDUCATION_STATUS"]
-# budgets = []
-# for channel, default, col in zip(channels, res["ACTUAL_SALES"].values, [col1, col1, col2,]):
-#     with col:
-#         budget = st.slider(channel, 0, 100, int(default), 5)
-#         budgets.append(budget)
-
 import pandas as pd
 import numpy as np
 from snowflake.sqlalchemy import URL
@@ -73,67 +12,84 @@ from py_scripts import part1 as p1
 
 st.set_page_config(layout="wide")       
 st.title("MId-Term Assignment")
+def run_query(dob_list,education_option,gender_option,dept_option,credit_option,marital_option):        
 
-def run_query(dob_list,education_option,gender_option,dept_option,credit_option,marital_option):
-    # if len(education_option)!=0 and len(gender_option)!=0 and len(dept_option)!=0 and len(credit_option)!=0:
-    #     query='''select sum(prediction) Predicted,sum(actual_sales) Actual_Sales
-    #             from predictions
-    #             where c_birth_year between '''+ str(dob_list[0]) +''' and '''+str( dob_list[1])+''' 
-    #             and cd_gender in'''+ str(gender_option)+'''
-    #             and cd_marital_status in'''+str(marital_option)+''' 
-    #             and cd_dep_count in '''+str(dept_option)+'''
-    #             and cd_credit_rating in '''+ str(credit_option)+'''
-    #             and cd_education_status in '''+ str(education_option)
-        
-    # elif len(education_option)==1 and len(gender_option)==1 and len(dept_option)==1 and len(credit_option)==1:
-    #     education_option=list(education_option)
-    #     gender_option=list(gender_option)
-    #     dept_option=list(dept_option)
-    #     credit_option=list(credit_option)
-    #     marital_option=list(marital_option)
-    #     query='''select sum(prediction) Predicted,sum(actual_sales) Actual_Sales
-    #             from predictions
-    #             where c_birth_year between '''+ str(dob_list[0]) +''' and '''+str( dob_list[1])+''' 
-    #             and cd_gender in('''+ str(gender_option[0])+''')
-    #             and cd_marital_status in ('''+str(marital_option[0])+''') 
-    #             and cd_dep_count in ('''+str(dept_option[0])+''')
-    #             and cd_credit_rating in ('''+ str(credit_option[0])+''')'''
+    query_prime="""select sum(prediction) Predicted,sum(actual_sales) Actual_Sales
+                from predictions
+                where c_birth_year between """ + str(dob_list[0]) +""" and """ +str( dob_list[1])
 
-    # else:
-    #     query='''select sum(prediction) Predicted,sum(actual_sales) Actual_Sales
-    #             from predictions
-    #             where c_birth_year between '''+ str(dob_list[0]) +''' and '''+str( dob_list[1]) 
 
+    str_pos=[1,1,1,1,1,1,1,1,1,1]
+    if len(gender_option)==0:str_pos[0]=0
+    if len(marital_option)==0:str_pos[1]=0
+    if len(dept_option)==0:str_pos[2]=0
+    if len(credit_option)==0:str_pos[3]=0
+    if len(education_option)==0:str_pos[4]=0
+    
+    if len(gender_option)==1:
+        str_pos[5]=-1
+        str_pos[0]=0
+    elif len(gender_option)>=1:
+        str_pos[5]=0
+        str_pos[0]=1
+    if len(marital_option)==1:
+        str_pos[6]=-1
+        str_pos[1]=0
+    elif len(marital_option)>=1:
+        str_pos[6]=0
+        str_pos[1]=1
+    if len(dept_option)==1:
+        str_pos[7]=-1
+        str_pos[2]=0
+    elif len(dept_option)>=1:
+        str_pos[7]=0
+        str_pos[2]=1
+    if len(credit_option)==1:
+        str_pos[8]=-1
+        str_pos[3]=0
+    elif len(credit_option)>=1:
+        str_pos[8]=0
+        str_pos[3]=1
+    if len(education_option)==1:
+        str_pos[9]=-1
+        str_pos[4]=0
+    elif len(education_option)>=1:
+        str_pos[9]=0
+        str_pos[4]=1
+   
     query_vals=['''
-    and cd_gender in'''+ str(gender_option),
-            '''
-            and cd_marital_status in'''+str(marital_option), 
+        and cd_gender in'''+ str(gender_option),
+        '''
+        and cd_marital_status in'''+str(marital_option), 
         '''
         and cd_dep_count in '''+str(dept_option),
         '''
         and cd_credit_rating in '''+ str(credit_option),
         '''
-        and cd_education_status in '''+ str(education_option)]
-    str_pos=[True,True,True,True,True]
-    if len(gender_option)==0:str_pos[0]=False
-    if len(marital_option)==0:str_pos[1]=False
-    if len(dept_option)==0:str_pos[2]=False
-    if len(credit_option)==0:str_pos[3]=False
-    if len(education_option)==0:str_pos[4]=False
+        and cd_education_status in '''+ str(education_option),
+        """ 
+        and cd_gender in('"""+ str(gender_option[0])+"""')""",
+        """
+        and cd_marital_status in ('"""+str(marital_option[0])+"""')""",
+        """ 
+        and cd_dep_count in ('"""+str(dept_option[0])+"""')""",
+        """
+        and cd_credit_rating in ('"""+ str(credit_option[0])+"""')""",
+        """
+        and cd_education_status in  ('"""+ str(education_option[0])+"""')"""]
 
-    query_prime='''select sum(prediction) Predicted,sum(actual_sales) Actual_Sales
-                from predictions
-                where c_birth_year between '''+ str(dob_list[0]) +''' and '''+str( dob_list[1])
+    
     for post_stat,query_val in zip(str_pos,query_vals):
-        if post_stat==True:
+        if post_stat!=0:
             query_prime=query_prime+query_val
-
+    
     return query_prime
+
 
 def main():
     with st.container():
         st.header("Part - 1")
-        st_part1()
+        # st_part1()
     with st.container():
         st.header("Part - 2: Customer Lifetime Valuation using XGBoost")
         st_part2()
@@ -163,9 +119,9 @@ def st_part1():
         tab1,tab2,tab3,tab4,tab5=st.tabs(tables)
         tab_names=[tab1,tab2,tab3,tab4,tab5]
         part1_engine = create_engine(URL(
-            account = 'ieimkyf-atb67363',
-            user = 'MOHITSNEGI123',
-            password = 'Hollyhalston97)',
+            account = 'pinvdzu-ljb05593',
+            user = 'gamer9797123',
+            password = 'Gamer9797123)',
             database = 'midterm',
             schema = 'public',
             warehouse = 'COMPUTE_WH',
@@ -190,9 +146,9 @@ def st_part1():
 
 def st_part2():
     part2_engine = create_engine(URL(
-            account = 'ieimkyf-atb67363',
-            user = 'MOHITSNEGI123',
-            password = 'Hollyhalston97)',
+            account = 'pinvdzu-ljb05593',
+            user = 'gamer9797123',
+            password = 'Gamer9797123)',
             database = 'TPCDS_XGBOOST',
             schema = 'DEMO',
             warehouse = 'COMPUTE_WH',
