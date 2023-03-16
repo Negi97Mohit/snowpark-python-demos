@@ -7,6 +7,7 @@ import sqlalchemy
 from streamlit_lottie import st_lottie
 import json
 import inspect
+import requests
 
 
 st.set_page_config(layout="wide")       
