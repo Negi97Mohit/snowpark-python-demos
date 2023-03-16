@@ -105,7 +105,17 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
             query_prime=query_prime+query_val
     return query_prime
 
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
 
+
+
+
+
+st_lottie(lottie_hello, key="hello")
 def main():
     with st.container():
         st.header("Part - 1")
@@ -116,10 +126,12 @@ def main():
 
 def st_part1():
     col1, col2 = st.columns(2,gap='small')
-    with col1:    
-        path = "97474-data-center.json"
-        with open(path,"r") as file:
-            url = json.load(file)
+    with col1:   
+        lottie_url_hello = "https://github.com/Negi97Mohit/snowpark-python-demos/blob/main/tpcds-customer-lifetime-value/97474-data-center.json"
+        lottie_hello = load_lottieurl(lottie_url_hello)
+#         path = "97474-data-center.json"
+#         with open(path,"r") as file:
+#             url = json.load(file)
         st_lottie(url,
             reverse=True,
             height=400,
