@@ -112,7 +112,7 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
 def main():
     with st.container():
         st.header("Part - 1")
-        # st_part1()
+        st_part1()
     with st.container():
         st.header("Part - 2: Customer Lifetime Valuation using XGBoost")
         st_part2()
