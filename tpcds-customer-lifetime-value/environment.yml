@@ -15,3 +15,4 @@ dependencies:
   - xgboost
   - pip:
     - snowflake-sqlalchemy
+    - streamlit-lottie 
