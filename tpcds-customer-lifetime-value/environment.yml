@@ -13,3 +13,5 @@ dependencies:
   - joblib
   - cachetools
   - xgboost
+  - snowflake-connector-python==2.7.9
+  - snowflake-sqlalchemy==1.3.4
