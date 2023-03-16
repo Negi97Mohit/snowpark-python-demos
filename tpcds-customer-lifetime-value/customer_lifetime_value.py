@@ -78,8 +78,6 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
         education_option=education_option+(1,)
         str_pos[9]=0
         str_pos[4]=0
-
-    st.write(education_option)
     query_vals=[
         '''
         and cd_gender in'''+ str(gender_option),
@@ -105,8 +103,7 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
     for post_stat,query_val in zip(str_pos,query_vals):
         if post_stat!=0:
             query_prime=query_prime+query_val
-    st.write(query_prime)
-    # return query_prime
+    return query_prime
 
 
 def main():
@@ -530,13 +527,11 @@ def st_part2():
             ['W','U']
         )
         
-    with col2:
-        
-        run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
-        # query=run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
-        # st.code(query,language='SQL')
-        # res2=pd.read_sql(query,connection)
-        # st.write(res2)
+    with col2:   
+        query=run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
+        st.code(query,language='SQL')
+        res2=pd.read_sql(query,connection)
+        st.write(res2)
     
 
 if __name__=="__main__":
