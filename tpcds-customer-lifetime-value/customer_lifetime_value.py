@@ -13,7 +13,7 @@ import plotly.express as px
 
 
 st.set_page_config(layout="wide")       
-st.title("MId-Term Assignment")
+st.title("Mid-Term Assignment")
 def run_query(dob_list,education_option,gender_option,dept_option,credit_option,marital_option):        
 
     query_prime1="""select sum(prediction) Predicted,sum(actual_sales) Actual_Sales
