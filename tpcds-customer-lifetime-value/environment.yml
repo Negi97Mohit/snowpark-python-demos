@@ -1,6 +1,6 @@
 name: snowpark_xgboost_tpc
 channels:
-  - pip
+  - snowflake
 dependencies:
   - python=3.8
   - sqlalchemy
@@ -13,4 +13,5 @@ dependencies:
   - joblib
   - cachetools
   - xgboost
-  - snowflake-sqlalchemy
+  - pip:
+    - snowflake-sqlalchemy
