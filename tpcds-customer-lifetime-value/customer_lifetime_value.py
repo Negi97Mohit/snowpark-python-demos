@@ -103,8 +103,7 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
     for post_stat,query_val in zip(str_pos,query_vals):
         if post_stat!=0:
             query_prime=query_prime+query_val
-    st.write(query_prime)
-    # return query_prime
+    return query_prime
 
 
 def main():
