@@ -13,4 +13,4 @@ dependencies:
   - joblib
   - cachetools
   - xgboost
-  - snowflake-sqlalchemy
+  - snowflake.sqlalchemy
