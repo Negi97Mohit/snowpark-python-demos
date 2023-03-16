@@ -528,13 +528,11 @@ def st_part2():
             ['W','U']
         )
         
-    with col2:
-        
-        run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
-        # query=run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
-        # st.code(query,language='SQL')
-        # res2=pd.read_sql(query,connection)
-        # st.write(res2)
+    with col2:   
+        query=run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
+        st.code(query,language='SQL')
+        res2=pd.read_sql(query,connection)
+        st.write(res2)
     
 
 if __name__=="__main__":
