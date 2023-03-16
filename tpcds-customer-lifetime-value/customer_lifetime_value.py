@@ -472,12 +472,12 @@ for query,table_name in zip(queries,tables):
         
 
     with col2:
-        questions=['''Find customers whose increase in spending was large over the web than in stores this year compared to last 
-                    year. 
+        questions=['''Find customers whose increase in spending was large over the web than in stores this year compared to last year. 
                     Qualification Substitution Parameters:
                      YEAR.01 = 2001
                      SELECTONE = t_s_secyear.customer_preferred_cust_flag''',
-                    '''Compute the revenue ratios across item classes: For each item in a list of given categories, during a 30 day time 
+
+                   '''Compute the revenue ratios across item classes: For each item in a list of given categories, during a 30 day time 
                     period, sold through the web channel compute the ratio of sales of that item to the sum of all of the sales in that 
                     item's class.
                     Qualification Substitution Parameters
@@ -517,7 +517,8 @@ for query,table_name in zip(queries,tables):
                     Qualification Substitution Parameters:
                      DAY.01 = 11
                      YEAR.01 = 1999''',
-                    '''Report the total catalog sales for customers in selected geographical regions or who made large purchases for a 
+                   
+                   '''Report the total catalog sales for customers in selected geographical regions or who made large purchases for a 
                     given year and quarter.
                     Qualification Substitution Parameters:
                      QOY.01 = 2
