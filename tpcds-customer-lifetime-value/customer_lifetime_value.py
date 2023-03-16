@@ -123,7 +123,7 @@ def main():
 def st_part1():
     col1, col2 = st.columns(2,gap='small')
     with col1:   
-        lottie_url_hello = "https://github.com/Negi97Mohit/snowpark-python-demos/blob/main/tpcds-customer-lifetime-value/97474-data-center.json"
+        lottie_url_hello = "https://raw.githubusercontent.com/Negi97Mohit/snowpark-python-demos/main/tpcds-customer-lifetime-value/97474-data-center.json"
         lottie_hello = load_lottieurl(lottie_url_hello)
 #         path = "97474-data-center.json"
 #         with open(path,"r") as file:
