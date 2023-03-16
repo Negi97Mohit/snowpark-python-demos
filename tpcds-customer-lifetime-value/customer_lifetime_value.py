@@ -78,8 +78,6 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
         education_option=education_option+(1,)
         str_pos[9]=0
         str_pos[4]=0
-
-    st.write(education_option)
     query_vals=[
         '''
         and cd_gender in'''+ str(gender_option),
