@@ -1,5 +1,6 @@
 name: snowpark_xgboost_tpc
 channels:
+  - https://repo.anaconda.com/pkgs/snowflake
   - snowflake
 dependencies:
   - python=3.8
