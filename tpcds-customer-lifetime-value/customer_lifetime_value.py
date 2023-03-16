@@ -9,12 +9,18 @@ import json
 import inspect
 import requests
 
+import plotly.express as px
+
 
 st.set_page_config(layout="wide")       
 st.title("MId-Term Assignment")
 def run_query(dob_list,education_option,gender_option,dept_option,credit_option,marital_option):        
 
-    query_prime="""select sum(prediction) Predicted,sum(actual_sales) Actual_Sales
+    query_prime1="""select sum(prediction) Predicted,sum(actual_sales) Actual_Sales
+                from predictions
+                where c_birth_year between """ + str(dob_list[0]) +""" and """ +str( dob_list[1])
+
+    query_prime12="""select c_birth_year,sum(prediction) Predicted_value,sum(actual_sales) Actual_Sales
                 from predictions
                 where c_birth_year between """ + str(dob_list[0]) +""" and """ +str( dob_list[1])
 
@@ -103,8 +109,14 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
 
     for post_stat,query_val in zip(str_pos,query_vals):
         if post_stat!=0:
-            query_prime=query_prime+query_val
-    return query_prime
+            query_prime1=query_prime1+query_val
+            query_prime12=query_prime12+query_val
+
+    query_prime12_last="""
+            group by 1
+            order by c_birth_year"""
+    query_prime12=query_prime12+query_prime12_last
+    return query_prime1,query_prime12
 
 def load_lottieurl(url: str):
     r = requests.get(url)
@@ -125,9 +137,6 @@ def st_part1():
     with col1:   
         lottie_url_hello = "https://raw.githubusercontent.com/Negi97Mohit/snowpark-python-demos/main/tpcds-customer-lifetime-value/97474-data-center.json"
         lottie_hello = load_lottieurl(lottie_url_hello)
-#         path = "97474-data-center.json"
-#         with open(path,"r") as file:
-#             url = json.load(file)
         st_lottie(lottie_hello,
             reverse=True,
             height=400,
@@ -463,6 +472,58 @@ for query,table_name in zip(queries,tables):
         
 
     with col2:
+        questions=['''Find customers whose increase in spending was large over the web than in stores this year compared to last 
+                    year. 
+                    Qualification Substitution Parameters:
+                     YEAR.01 = 2001
+                     SELECTONE = t_s_secyear.customer_preferred_cust_flag''',
+                    '''Compute the revenue ratios across item classes: For each item in a list of given categories, during a 30 day time 
+                    period, sold through the web channel compute the ratio of sales of that item to the sum of all of the sales in that 
+                    item's class.
+                    Qualification Substitution Parameters
+                     CATEGORY.01 = Sports
+                     CATEGORY.02 = Books
+                     CATEGORY.03 = Home
+                     SDATE.01 = 1999-02-22
+                     YEAR.01 = 1999''',
+                    '''
+                    Calculate the average sales quantity, average sales price, average wholesale cost, total wholesale cost for store 
+                    sales of different customer types (e.g., based on marital status, education status) including their household 
+                    demographics, sales price and different combinations of state and sales profit for a given year.
+                    Qualification Substitution Parameters:
+                     STATE.01 = TX
+                     STATE.02 = OH
+                     STATE.03 = TX
+                     STATE.04 = OR
+                     STATE.05 = NM
+                     STATE.06 = KY
+                     STATE.07 = VA
+                     STATE.08 = TX
+                     STATE.09 = MS
+                     ES.01 = Advanced Degree
+                     ES.02 = College
+                     ES.03 = 2 yr Degree
+                     MS.01 = M
+                     MS.02 = S
+                     MS.03 = W
+                    ''',
+                    '''This query contains multiple iterations:
+                    Iteration 1: First identify items in the same brand, class and category that are sold in all three sales channels in 
+                    two consecutive years. Then compute the average sales (quantity*list price) across all sales of all three sales 
+                    channels in the same three years (average sales). Finally, compute the total sales and the total number of sales 
+                    rolled up for each channel, brand, class and category. Only consider sales of cross channel sales that had sales 
+                    larger than the average sale.
+                    Iteration 2: Based on the previous query compare December store sales.
+                    Qualification Substitution Parameters:
+                     DAY.01 = 11
+                     YEAR.01 = 1999''',
+                    '''Report the total catalog sales for customers in selected geographical regions or who made large purchases for a 
+                    given year and quarter.
+                    Qualification Substitution Parameters:
+                     QOY.01 = 2
+                     YEAR.01 = 2001
+'''
+                    ]
         tables=['query1','query2','query3','query4','query5']
         tab1,tab2,tab3,tab4,tab5=st.tabs(tables)
         tab_names=[tab1,tab2,tab3,tab4,tab5]
@@ -476,15 +537,14 @@ for query,table_name in zip(queries,tables):
             role='ACCOUNTADMIN',
         ))
         if sqlalchemy.inspect(part1_engine).has_table("query1"):
-            for table_name,tab in zip(tables,tab_names):
+            for table_name,tab,question in zip(tables,tab_names,questions):
                 with tab:
                     query="select * from "+str(table_name)
-                    print(query)
-                    print(table_name,"Part-1")
                     connection = part1_engine.connect()
                     res = pd.read_sql(query, connection)
                     title="Query number: "+str(table_name)
                     st.header(title)
+                    st.write(question)
                     st.write(res)
                 part1_engine.dispose()
 
@@ -534,14 +594,23 @@ def st_part2():
             ['S','M','W','U','D'],
             ['W','U']
         )
-        
+         
     with col2:   
-        query=run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
+        query,query2=run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
         st.code(query,language='SQL')
         res2=pd.read_sql(query,connection)
         st.write(res2)
-    
+        st.code(query2,language='SQL')
+        res3=pd.read_sql(query2,connection)
+        st.write(res3)
 
+    fig=px.line(res3,x='c_birth_year',y=['actual_sales','predicted_value'])
+    fig.update_layout(autosize=True,
+                      width=1600,
+                      height=400)
+    st.plotly_chart(fig)
+    
+    
 if __name__=="__main__":
     main()
 
