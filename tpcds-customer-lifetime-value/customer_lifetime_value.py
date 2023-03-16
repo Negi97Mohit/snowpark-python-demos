@@ -111,11 +111,6 @@ def load_lottieurl(url: str):
         return None
     return r.json()
 
-
-
-
-
-st_lottie(lottie_hello, key="hello")
 def main():
     with st.container():
         st.header("Part - 1")
@@ -132,7 +127,7 @@ def st_part1():
 #         path = "97474-data-center.json"
 #         with open(path,"r") as file:
 #             url = json.load(file)
-        st_lottie(url,
+        st_lottie(lottie_hello,
             reverse=True,
             height=400,
             width=400,
