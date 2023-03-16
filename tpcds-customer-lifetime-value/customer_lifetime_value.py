@@ -473,56 +473,56 @@ for query,table_name in zip(queries,tables):
 
     with col2:
         questions=['''Find customers whose increase in spending was large over the web than in stores this year compared to last year. 
-                    Qualification Substitution Parameters:
-                     YEAR.01 = 2001
-                     SELECTONE = t_s_secyear.customer_preferred_cust_flag''',
+        Qualification Substitution Parameters:
+         YEAR.01 = 2001
+         SELECTONE = t_s_secyear.customer_preferred_cust_flag''',
 
-                   '''Compute the revenue ratios across item classes: For each item in a list of given categories, during a 30 day time 
-                    period, sold through the web channel compute the ratio of sales of that item to the sum of all of the sales in that 
-                    item's class.
-                    Qualification Substitution Parameters
-                     CATEGORY.01 = Sports
-                     CATEGORY.02 = Books
-                     CATEGORY.03 = Home
-                     SDATE.01 = 1999-02-22
-                     YEAR.01 = 1999''',
-                    '''
-                    Calculate the average sales quantity, average sales price, average wholesale cost, total wholesale cost for store 
-                    sales of different customer types (e.g., based on marital status, education status) including their household 
-                    demographics, sales price and different combinations of state and sales profit for a given year.
-                    Qualification Substitution Parameters:
-                     STATE.01 = TX
-                     STATE.02 = OH
-                     STATE.03 = TX
-                     STATE.04 = OR
-                     STATE.05 = NM
-                     STATE.06 = KY
-                     STATE.07 = VA
-                     STATE.08 = TX
-                     STATE.09 = MS
-                     ES.01 = Advanced Degree
-                     ES.02 = College
-                     ES.03 = 2 yr Degree
-                     MS.01 = M
-                     MS.02 = S
-                     MS.03 = W
-                    ''',
-                    '''This query contains multiple iterations:
-                    Iteration 1: First identify items in the same brand, class and category that are sold in all three sales channels in 
-                    two consecutive years. Then compute the average sales (quantity*list price) across all sales of all three sales 
-                    channels in the same three years (average sales). Finally, compute the total sales and the total number of sales 
-                    rolled up for each channel, brand, class and category. Only consider sales of cross channel sales that had sales 
-                    larger than the average sale.
-                    Iteration 2: Based on the previous query compare December store sales.
-                    Qualification Substitution Parameters:
-                     DAY.01 = 11
-                     YEAR.01 = 1999''',
-                   
-                   '''Report the total catalog sales for customers in selected geographical regions or who made large purchases for a 
-                    given year and quarter.
-                    Qualification Substitution Parameters:
-                     QOY.01 = 2
-                     YEAR.01 = 2001
+       '''Compute the revenue ratios across item classes: For each item in a list of given categories, during a 30 day time 
+        period, sold through the web channel compute the ratio of sales of that item to the sum of all of the sales in that 
+        item's class.
+        Qualification Substitution Parameters
+         CATEGORY.01 = Sports
+         CATEGORY.02 = Books
+         CATEGORY.03 = Home
+         SDATE.01 = 1999-02-22
+         YEAR.01 = 1999''',
+        '''
+        Calculate the average sales quantity, average sales price, average wholesale cost, total wholesale cost for store 
+        sales of different customer types (e.g., based on marital status, education status) including their household 
+        demographics, sales price and different combinations of state and sales profit for a given year.
+        Qualification Substitution Parameters:
+         STATE.01 = TX
+         STATE.02 = OH
+         STATE.03 = TX
+         STATE.04 = OR
+         STATE.05 = NM
+         STATE.06 = KY
+         STATE.07 = VA
+         STATE.08 = TX
+         STATE.09 = MS
+         ES.01 = Advanced Degree
+         ES.02 = College
+         ES.03 = 2 yr Degree
+         MS.01 = M
+         MS.02 = S
+         MS.03 = W
+        ''',
+        '''This query contains multiple iterations:
+        Iteration 1: First identify items in the same brand, class and category that are sold in all three sales channels in 
+        two consecutive years. Then compute the average sales (quantity*list price) across all sales of all three sales 
+        channels in the same three years (average sales). Finally, compute the total sales and the total number of sales 
+        rolled up for each channel, brand, class and category. Only consider sales of cross channel sales that had sales 
+        larger than the average sale.
+        Iteration 2: Based on the previous query compare December store sales.
+        Qualification Substitution Parameters:
+         DAY.01 = 11
+         YEAR.01 = 1999''',
+
+       '''Report the total catalog sales for customers in selected geographical regions or who made large purchases for a 
+        given year and quarter.
+        Qualification Substitution Parameters:
+         QOY.01 = 2
+         YEAR.01 = 2001
 '''
                     ]
         tables=['query1','query2','query3','query4','query5']
