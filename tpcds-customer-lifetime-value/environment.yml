@@ -13,8 +13,8 @@ dependencies:
   - joblib
   - cachetools
   - xgboost
-  - plotly
   - pip:
     - snowflake-sqlalchemy
     - snowflake-connector-python
-    - streamlit-lottie 
+    - streamlit-lottie
+    - plotly
