@@ -19,44 +19,69 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
 
 
     str_pos=[1,1,1,1,1,1,1,1,1,1]
-    if len(gender_option)==0:str_pos[0]=0
-    if len(marital_option)==0:str_pos[1]=0
-    if len(dept_option)==0:str_pos[2]=0
-    if len(credit_option)==0:str_pos[3]=0
-    if len(education_option)==0:str_pos[4]=0
-    
+    # if len(gender_option)==0:str_pos[0]=0
+    # if len(marital_option)==0:str_pos[1]=0
+    # if len(dept_option)==0:str_pos[2]=0
+    # if len(credit_option)==0:str_pos[3]=0
+    # if len(education_option)==0:str_pos[4]=0
     if len(gender_option)==1:
         str_pos[5]=-1
         str_pos[0]=0
     elif len(gender_option)>=1:
         str_pos[5]=0
         str_pos[0]=1
+    else:
+        gender_option=gender_option+(1,)
+        str_pos[5]=0
+        str_pos[0]=0
+        
     if len(marital_option)==1:
         str_pos[6]=-1
         str_pos[1]=0
     elif len(marital_option)>=1:
         str_pos[6]=0
         str_pos[1]=1
+    else:
+        marital_option=marital_option+(1,)
+        str_pos[6]=0
+        str_pos[1]=0
+
     if len(dept_option)==1:
         str_pos[7]=-1
         str_pos[2]=0
     elif len(dept_option)>=1:
         str_pos[7]=0
         str_pos[2]=1
+    else:
+        dept_option=dept_option+(1,)
+        str_pos[7]=0
+        str_pos[2]=0
+
     if len(credit_option)==1:
         str_pos[8]=-1
         str_pos[3]=0
     elif len(credit_option)>=1:
         str_pos[8]=0
         str_pos[3]=1
+    else:
+        credit_option=credit_option+(1,)
+        str_pos[8]=0
+        str_pos[3]=0
+
     if len(education_option)==1:
         str_pos[9]=-1
         str_pos[4]=0
     elif len(education_option)>=1:
         str_pos[9]=0
         str_pos[4]=1
-   
-    query_vals=['''
+    else:
+        education_option=education_option+(1,)
+        str_pos[9]=0
+        str_pos[4]=0
+
+    st.write(education_option)
+    query_vals=[
+        '''
         and cd_gender in'''+ str(gender_option),
         '''
         and cd_marital_status in'''+str(marital_option), 
@@ -66,7 +91,6 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
         and cd_credit_rating in '''+ str(credit_option),
         '''
         and cd_education_status in '''+ str(education_option),
-        
         """ 
         and cd_gender in('"""+ str(gender_option[0])+"""')""",
         """
@@ -78,12 +102,11 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
         """
         and cd_education_status in  ('"""+ str(education_option[0])+"""')"""]
 
-    
     for post_stat,query_val in zip(str_pos,query_vals):
         if post_stat!=0:
             query_prime=query_prime+query_val
-    
-    return query_prime
+    st.write(query_prime)
+    # return query_prime
 
 
 def main():
@@ -460,8 +483,6 @@ for query,table_name in zip(queries,tables):
                     st.write(res)
                 part1_engine.dispose()
 
-        else:
-            p1.part1()
 
 def st_part2():
     part2_engine = create_engine(URL(
@@ -510,10 +531,12 @@ def st_part2():
         )
         
     with col2:
-        query=run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
-        st.code(query,language='SQL')
-        res2=pd.read_sql(query,connection)
-        st.write(res2)
+        
+        run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
+        # query=run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
+        # st.code(query,language='SQL')
+        # res2=pd.read_sql(query,connection)
+        # st.write(res2)
     
 
 if __name__=="__main__":
