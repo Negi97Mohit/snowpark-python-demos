@@ -1,6 +1,6 @@
 name: snowpark_xgboost_tpc
-# channels:
-#   - pip
+channels:
+  - pip
 dependencies:
   - python=3.8
   - sqlalchemy
