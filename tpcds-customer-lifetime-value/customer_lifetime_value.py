@@ -6,8 +6,6 @@ import streamlit as st
 import sqlalchemy
 from streamlit_lottie import st_lottie
 import requests
-from sklearn.metrics import mean_squared_error
-import math
 
 import plotly.express as px
 
@@ -604,10 +602,6 @@ def st_part2():
         st.write(res3)
         res4=res3
         res4=round(res4/1000000000,2)
-        mse=mean_squared_error(res4.actual_sales,res4.predicted_value)
-        rmse=math.sqrt(mse)
-        st.write('<b>Model MSE: </b>',mse,unsafe_allow_html=True)
-        st.write('<b>Model RMSE: </b>',rmse,unsafe_allow_html=True)
         res4['accu']=res4.apply(accuracy_calc,axis=1)
         st.write('<b> Model Accuracy: </b>',round((res4.accu.mean() )*100,2),unsafe_allow_html=True) 
 
