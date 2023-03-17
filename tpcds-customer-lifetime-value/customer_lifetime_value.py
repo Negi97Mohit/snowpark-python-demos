@@ -8,12 +8,18 @@ from streamlit_lottie import st_lottie
 import json
 import inspect
 import requests
-
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import classification_report
+import math
 import plotly.express as px
 
 
 st.set_page_config(layout="wide")       
 st.title("Mid-Term Assignment")
+
+def accuracy_calc(df):
+    return df['predicted_value']/(df['predicted_value']+df['actual_sales'])
+
 def run_query(dob_list,education_option,gender_option,dept_option,credit_option,marital_option):        
 
     query_prime1="""select sum(prediction) Predicted,sum(actual_sales) Actual_Sales
@@ -595,15 +601,22 @@ def st_part2():
             ['S','M','W','U','D'],
             ['W','U']
         )
-         
-    with col2:   
         query,query2=run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
         st.code(query,language='SQL')
         res2=pd.read_sql(query,connection)
         st.write(res2)
+    with col2:   
+
         st.code(query2,language='SQL')
         res3=pd.read_sql(query2,connection)
         st.write(res3)
+        MSE=mean_squared_error(res3.actual_sales,res3.predicted_value)
+        RMSE=math.sqrt(MSE)
+        st.write('<b> RMSE: </b>',round(RMSE,2),unsafe_allow_html=True)
+        res4=res3
+        res4['accu']=res4.apply(accuracy_calc,axis=1)
+        st.write('<b> Model Accuracy: </b>',round((res4.accu.mean() )*100,2),unsafe_allow_html=True)   
+
 
     fig=px.line(res3,x='c_birth_year',y=['actual_sales','predicted_value'])
     fig.update_layout(autosize=True,
