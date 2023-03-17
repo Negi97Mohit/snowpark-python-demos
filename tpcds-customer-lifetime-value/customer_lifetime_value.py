@@ -10,15 +10,14 @@ import inspect
 import requests
 from sklearn.metrics import mean_squared_error
 import math
+
 import plotly.express as px
 
-
 st.set_page_config(layout="wide")       
-st.title("Mid-Term Assignment")
+st.title("MId-Term Assignment")
 
 def accuracy_calc(df):
     return df['predicted_value']/(df['predicted_value']+df['actual_sales'])
-
 def run_query(dob_list,education_option,gender_option,dept_option,credit_option,marital_option):        
 
     query_prime1="""select sum(prediction) Predicted,sum(actual_sales) Actual_Sales
@@ -31,11 +30,6 @@ def run_query(dob_list,education_option,gender_option,dept_option,credit_option,
 
 
     str_pos=[1,1,1,1,1,1,1,1,1,1]
-    # if len(gender_option)==0:str_pos[0]=0
-    # if len(marital_option)==0:str_pos[1]=0
-    # if len(dept_option)==0:str_pos[2]=0
-    # if len(credit_option)==0:str_pos[3]=0
-    # if len(education_option)==0:str_pos[4]=0
     if len(gender_option)==1:
         str_pos[5]=-1
         str_pos[0]=0
@@ -151,7 +145,7 @@ def st_part1():
             quality='high',
             key='Car'
         )
-        with st.expander("View Main Code"):
+        with st.expander("Query table generator code"):
             p1code="""import pandas as pd
 from snowflake.sqlalchemy import URL
 from sqlalchemy import create_engine
@@ -477,57 +471,56 @@ for query,table_name in zip(queries,tables):
         
 
     with col2:
-        questions=['''Find customers whose increase in spending was large over the web than in stores this year compared to last year. 
-        Qualification Substitution Parameters:
-         YEAR.01 = 2001
-         SELECTONE = t_s_secyear.customer_preferred_cust_flag''',
-
-       '''Compute the revenue ratios across item classes: For each item in a list of given categories, during a 30 day time 
-        period, sold through the web channel compute the ratio of sales of that item to the sum of all of the sales in that 
-        item's class.
-        Qualification Substitution Parameters
-         CATEGORY.01 = Sports
-         CATEGORY.02 = Books
-         CATEGORY.03 = Home
-         SDATE.01 = 1999-02-22
-         YEAR.01 = 1999''',
-        '''
-        Calculate the average sales quantity, average sales price, average wholesale cost, total wholesale cost for store 
-        sales of different customer types (e.g., based on marital status, education status) including their household 
-        demographics, sales price and different combinations of state and sales profit for a given year.
-        Qualification Substitution Parameters:
-         STATE.01 = TX
-         STATE.02 = OH
-         STATE.03 = TX
-         STATE.04 = OR
-         STATE.05 = NM
-         STATE.06 = KY
-         STATE.07 = VA
-         STATE.08 = TX
-         STATE.09 = MS
-         ES.01 = Advanced Degree
-         ES.02 = College
-         ES.03 = 2 yr Degree
-         MS.01 = M
-         MS.02 = S
-         MS.03 = W
-        ''',
-        '''This query contains multiple iterations:
-        Iteration 1: First identify items in the same brand, class and category that are sold in all three sales channels in 
-        two consecutive years. Then compute the average sales (quantity*list price) across all sales of all three sales 
-        channels in the same three years (average sales). Finally, compute the total sales and the total number of sales 
-        rolled up for each channel, brand, class and category. Only consider sales of cross channel sales that had sales 
-        larger than the average sale.
-        Iteration 2: Based on the previous query compare December store sales.
-        Qualification Substitution Parameters:
-         DAY.01 = 11
-         YEAR.01 = 1999''',
-
-       '''Report the total catalog sales for customers in selected geographical regions or who made large purchases for a 
-        given year and quarter.
-        Qualification Substitution Parameters:
-         QOY.01 = 2
-         YEAR.01 = 2001
+        questions=['''Find customers whose increase in spending was large over the web than in stores this year compared to last 
+                    year. 
+                    Qualification Substitution Parameters:
+                     YEAR.01 = 2001
+                     SELECTONE = t_s_secyear.customer_preferred_cust_flag''',
+                    '''Compute the revenue ratios across item classes: For each item in a list of given categories, during a 30 day time 
+                    period, sold through the web channel compute the ratio of sales of that item to the sum of all of the sales in that 
+                    item's class.
+                    Qualification Substitution Parameters
+                     CATEGORY.01 = Sports
+                     CATEGORY.02 = Books
+                     CATEGORY.03 = Home
+                     SDATE.01 = 1999-02-22
+                     YEAR.01 = 1999''',
+                    '''
+                    Calculate the average sales quantity, average sales price, average wholesale cost, total wholesale cost for store 
+                    sales of different customer types (e.g., based on marital status, education status) including their household 
+                    demographics, sales price and different combinations of state and sales profit for a given year.
+                    Qualification Substitution Parameters:
+                     STATE.01 = TX
+                     STATE.02 = OH
+                     STATE.03 = TX
+                     STATE.04 = OR
+                     STATE.05 = NM
+                     STATE.06 = KY
+                     STATE.07 = VA
+                     STATE.08 = TX
+                     STATE.09 = MS
+                     ES.01 = Advanced Degree
+                     ES.02 = College
+                     ES.03 = 2 yr Degree
+                     MS.01 = M
+                     MS.02 = S
+                     MS.03 = W
+                    ''',
+                    '''This query contains multiple iterations:
+                    Iteration 1: First identify items in the same brand, class and category that are sold in all three sales channels in 
+                    two consecutive years. Then compute the average sales (quantity*list price) across all sales of all three sales 
+                    channels in the same three years (average sales). Finally, compute the total sales and the total number of sales 
+                    rolled up for each channel, brand, class and category. Only consider sales of cross channel sales that had sales 
+                    larger than the average sale.
+                    Iteration 2: Based on the previous query compare December store sales.
+                    Qualification Substitution Parameters:
+                     DAY.01 = 11
+                     YEAR.01 = 1999''',
+                    '''Report the total catalog sales for customers in selected geographical regions or who made large purchases for a 
+                    given year and quarter.
+                    Qualification Substitution Parameters:
+                     QOY.01 = 2
+                     YEAR.01 = 2001
 '''
                     ]
         tables=['query1','query2','query3','query4','query5']
@@ -550,7 +543,7 @@ for query,table_name in zip(queries,tables):
                     res = pd.read_sql(query, connection)
                     title="Query number: "+str(table_name)
                     st.header(title)
-                    st.code(question)
+                    st.write(question)
                     st.write(res)
                 part1_engine.dispose()
 
@@ -600,22 +593,25 @@ def st_part2():
             ['S','M','W','U','D'],
             ['W','U']
         )
+        st.subheader("Total Predicted vs Actual Sales")
         query,query2=run_query(list(dob_list),tuple(education_option),tuple(gender_option),tuple(dept_option),tuple(credit_option),tuple(marital_option))
         st.code(query,language='SQL')
         res2=pd.read_sql(query,connection)
-        st.write(res2)
+        st.write('<b> Predicted Sales: </b>',round(res2.loc[0][0]/1000000000,2),'billion USD',unsafe_allow_html=True)        
+        st.write("<b>Actual Sales: </b>",round(res2.loc[0][1]/1000000000,2),'billion USD',unsafe_allow_html=True)        
     with col2:   
-
+        st.subheader("Year wise Predicted vs Actual Sales")
         st.code(query2,language='SQL')
         res3=pd.read_sql(query2,connection)
         st.write(res3)
-        MSE=mean_squared_error(res3.actual_sales,res3.predicted_value)
-        RMSE=math.sqrt(MSE)
-        st.write('<b> RMSE: </b>',round(RMSE,2),unsafe_allow_html=True)
         res4=res3
+        res4=round(res4/1000000000,2)
+        mse=mean_squared_error(res4.actual_sales,res4.predicted_value)
+        rmse=math.sqrt(mse)
+        st.write('<b>Model MSE: </b>',mse,unsafe_allow_html=True)
+        st.write('<b>Model RMSE: </b>',rmse,unsafe_allow_html=True)
         res4['accu']=res4.apply(accuracy_calc,axis=1)
-        st.write('<b> Model Accuracy: </b>',round((res4.accu.mean() )*100,2),unsafe_allow_html=True)   
-
+        st.write('<b> Model Accuracy: </b>',round((res4.accu.mean() )*100,2),unsafe_allow_html=True) 
 
     fig=px.line(res3,x='c_birth_year',y=['actual_sales','predicted_value'])
     fig.update_layout(autosize=True,
