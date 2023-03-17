@@ -13,7 +13,7 @@ st.set_page_config(layout="wide")
 st.title("MId-Term Assignment")
 
 def accuracy_calc(df):
-    return 1-(df['predicted_value']/(df['actual_sales']-1))
+    return 1-abs((df['predicted_value']/(df['actual_sales']-1)))
 
 def run_query(dob_list,education_option,gender_option,dept_option,credit_option,marital_option):        
 
