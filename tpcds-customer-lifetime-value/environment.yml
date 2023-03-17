@@ -14,7 +14,7 @@ dependencies:
   - cachetools
   - xgboost
   - pip:
-    - sklearn 
+    - scikit-learn 
     - snowflake-sqlalchemy
     - snowflake-connector-python
     - streamlit-lottie
