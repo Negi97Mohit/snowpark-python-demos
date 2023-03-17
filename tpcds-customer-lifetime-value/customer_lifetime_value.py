@@ -5,8 +5,6 @@ from sqlalchemy import create_engine
 import streamlit as st
 import sqlalchemy
 from streamlit_lottie import st_lottie
-import json
-import inspect
 import requests
 from sklearn.metrics import mean_squared_error
 import math
