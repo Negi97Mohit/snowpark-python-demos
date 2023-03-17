@@ -9,7 +9,6 @@ import json
 import inspect
 import requests
 from sklearn.metrics import mean_squared_error
-from sklearn.metrics import classification_report
 import math
 import plotly.express as px
 
