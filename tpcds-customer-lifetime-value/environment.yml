@@ -13,7 +13,6 @@ dependencies:
   - joblib
   - cachetools
   - xgboost
-  - scikit-learn 
   - pip:
     - snowflake-sqlalchemy
     - snowflake-connector-python
