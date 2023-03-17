@@ -540,7 +540,7 @@ for query,table_name in zip(queries,tables):
                     res = pd.read_sql(query, connection)
                     title="Query number: "+str(table_name)
                     st.header(title)
-                    st.write(question)
+                    st.code(question)
                     st.write(res)
                 part1_engine.dispose()
 
