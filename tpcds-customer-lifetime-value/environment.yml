@@ -1,6 +1,7 @@
 name: snowpark_xgboost_tpc
 channels:
   - snowflake
+  - conda-forge
 dependencies:
   - python=3.8
   - sqlalchemy
